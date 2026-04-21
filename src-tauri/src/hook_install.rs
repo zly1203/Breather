@@ -1,5 +1,5 @@
 //! Installs (or keeps up to date) the Claude Code hook so Breather
-//! receives Stop events. Called on every app startup — idempotent.
+//! receives Stop events. Called on every app startup. idempotent.
 //!
 //! Flow:
 //!   1. If ~/.claude/ doesn't exist, Claude Code isn't installed. Skip.

@@ -232,7 +232,7 @@ mod tests {
             for reason in all_reasons() {
                 for _ in 0..20 {
                     let msg = get_reminder(&sev, &reason);
-                    assert!(!msg.contains('—'),
+                    assert!(!msg.contains('\u{2014}'),
                         "em dash found in {:?} / {:?}: {}", sev, reason, msg);
                 }
             }

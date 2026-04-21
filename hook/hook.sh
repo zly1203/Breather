@@ -1,5 +1,5 @@
 #!/bin/bash
-# Breather — Claude Code hook.
+# Breather. Claude Code hook.
 # Sends a lightweight HTTP POST to the Breather app on each conversation turn (Stop event).
 
 INPUT=$(cat)

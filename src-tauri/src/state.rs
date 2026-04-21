@@ -12,7 +12,7 @@ const MAX_RECENT: usize = 60;
 /// How much to backdate a new session's start_time to compensate for the time
 /// the user spent composing & awaiting the first Stop event.
 /// Stop hook fires when Claude finishes responding, but the user began the turn
-/// a minute or two earlier — this offset accounts for that gap.
+/// a minute or two earlier. this offset accounts for that gap.
 const SESSION_START_OFFSET_MS: i64 = 90 * 1000;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -48,7 +48,7 @@ pub struct AppState {
     pub today: DayState,
     pub last_session_summary: Option<SessionSummary>,
     pub history: Vec<SessionSummary>,
-    pub intensity: u8, // 1 (gentle) — 100 (attentive), default 50
+    pub intensity: u8, // 1 (gentle). 100 (attentive), default 50
 }
 
 impl Default for AppState {
@@ -197,7 +197,7 @@ impl StateManager {
         state.history.clone()
     }
 
-    /// Today's total accumulated minutes — closed sessions today plus the
+    /// Today's total accumulated minutes. closed sessions today plus the
     /// current session's contribution (capped at last interaction if stale).
     pub fn get_today_total(&self) -> u32 {
         let state = self.state.lock().unwrap();

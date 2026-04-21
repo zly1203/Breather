@@ -4,7 +4,7 @@
 
 Coding with AI is fast. Maybe too fast.
 
-The old breaks are gone — the compile waits, the pauses between
+The old breaks are gone. The compile waits, the pauses between
 typing, the moments you'd get up to grab water while the tests ran.
 When Claude Code finishes in ninety seconds, you don't step away.
 You just prompt again. And again. And again.
@@ -43,7 +43,7 @@ Code automatically. Click the menubar icon anytime to check in.
 The slider tunes how sensitive Breather is. **Less** means it stays
 quiet longer; **More** means it'll notice fatigue sooner.
 
-Under the hood, Breather tracks five dimensions of fatigue — session
+Under the hood, Breather tracks five dimensions of fatigue: session
 length, today's total, prompting pace, break debt, and time of day.
 When the combined score crosses your threshold, it picks a gentle
 message and delivers it at the next natural pause in your work.
@@ -52,11 +52,11 @@ message and delivers it at the next natural pause in your work.
 
 ## Background
 
-- [Origin story](./CONTEXT.md) — why this exists
-- [Product requirements](./PRD.md) — the thinking behind the design
+- [Origin story](./CONTEXT.md): why this exists
+- [Product requirements](./PRD.md): the thinking behind the design
 
 ## License
 
-[PolyForm Noncommercial 1.0.0](./LICENSE) — free for personal,
+[PolyForm Noncommercial 1.0.0](./LICENSE). Free for personal,
 educational, and research use. For commercial use, please get in
 touch.

@@ -43,7 +43,7 @@ pub async fn start_server(state_mgr: Arc<StateManager>, app_handle: AppHandle) {
     axum::serve(listener, app).await.ok();
 }
 
-/// POST /event — called by Claude Code Stop hook on each conversation turn.
+/// POST /event: called by Claude Code Stop hook on each conversation turn.
 async fn handle_event(
     AxumState(server): AxumState<Arc<ServerState>>,
     Json(_body): Json<Value>,
@@ -53,7 +53,7 @@ async fn handle_event(
     // Notify frontend to update UI (session card, today total, history).
     server.app_handle.emit("session-updated", ()).ok();
 
-    // If this interaction just started a new session, skip fatigue check —
+    // If this interaction just started a new session, skip fatigue check:
     // a brand-new session has no fatigue to detect yet, and we deliberately
     // don't send any "welcome back" notification (the UI shows everything).
     if is_new {
@@ -72,7 +72,7 @@ async fn handle_event(
     StatusCode::OK
 }
 
-/// GET /status — returns current session stats as JSON.
+/// GET /status: returns current session stats as JSON.
 async fn handle_status(
     AxumState(server): AxumState<Arc<ServerState>>,
 ) -> Json<Value> {

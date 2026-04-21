@@ -1,101 +1,162 @@
-# Vibe Break — 项目背景与调研记录
+# Breather: Background and Research Notes
 
-> 本文档记录了项目起源的完整思考过程，作为后续开发的上下文参考。
+> A record of the project's origin and thinking, kept as context for
+> future development.
 
-## 起源
+## Origin
 
-用户观察到：AI 使用时间骤增，人们需要小工具提醒自己停下来、接触现实世界。最初的想法是在 Claude Code 中做一个插件，在一定 session 时间后提醒休息。
+A simple observation: time spent using AI tools is rising sharply,
+and people need a small tool to remind them to stop and re-engage
+with the physical world. The first sketch was a Claude Code plugin
+that would nudge the user to rest after a session crossed some time
+threshold.
 
-## 竞品调研
+## Landscape research
 
-### 已有产品分层
+### Existing products, by layer
 
-**桌面端通用休息提醒（最成熟）**
-- **Stretchly** — 开源，13k stars，最流行，但完全不感知用户在做什么
-- **LookAway** (Mac, $15) — 能检测开会/录屏时自动延迟，较智能
-- **DeskBreak** — 最接近开发者场景，能在 git commit 后建议休息
+**Desktop break reminders (most mature)**
 
-**VS Code 扩展（多但简单）**
-- 番茄钟类十几个，都是简单计时器
-- **CodeFit** 最全面——运动指导、游戏化、团队排行榜，但不感知 AI 使用
+- **Stretchly**: open source, 13k stars, the most popular option, but
+  completely unaware of what the user is actually doing.
+- **LookAway** (Mac, $15): smart enough to defer reminders during
+  meetings and screen recording.
+- **DeskBreak**: the closest to a developer-aware tool; suggests breaks
+  after git commits.
 
-**CLI 工具**
-- **pomo** (Go, 1.5k stars) — 终端番茄钟，可脚本化
-- **Flomo** — 根据实际工作时长动态计算休息（flowmodoro），非固定 25 分钟
+**VS Code extensions (many, but simple)**
 
-**Claude Code 生态**
-- **Health Buddy Skill** — 检测到用户说"我要疯了"时触发关怀，非主动计时
-- 没有现成的 session 计时休息提醒插件
+- A dozen or so Pomodoro-style timers, all basically stopwatches.
+- **CodeFit**: the most complete (exercise prompts, gamification, team
+  leaderboards), but has no awareness of AI usage.
 
-### 关键结论
+**CLI tools**
 
-如果核心功能只是"每隔一段时间提醒休息"，pomo/flomo/Stretchly 已经能做。差异化只在"AI 感知"这一层才成立——需要知道交互轮次、交互密度、代码变更量，而非单纯计时。
+- **pomo** (Go, 1.5k stars): terminal Pomodoro, scriptable.
+- **Flomo**: computes break length from actual work duration
+  (flowmodoro), rather than a fixed 25 minutes.
 
-## 核心洞察：六重神经机制
+**Claude Code ecosystem**
 
-经过深度调研，确认 vibe coding 疲劳是六种神经机制同时作用的结果。这是产品的理论根基和差异化来源。
+- **Health Buddy Skill**: triggers support when the user types
+  something like "I'm going crazy"; not a proactive timer.
+- No existing session-timer or break-reminder plugin.
 
-### 1. 多巴胺透支
-- **研究者**：Anna Lembke（斯坦福，《多巴胺国度》）、Wolfram Schultz（剑桥）
-- **机制**：快感-痛苦跷跷板。反复快速刺激导致神经适应，快感变弱，痛苦加强
-- **在 vibe coding 中**：每 30-120 秒一次反馈循环，session 开始兴奋、结束空虚
+### Key conclusion
 
-### 2. 超时长心流
-- **研究者**：Arne Dietrich（短暂前额叶抑制假说，2003）、Limb & Braun（fMRI，2008）
-- **机制**：心流时前额叶皮层（自我监控、时间感知）被关闭
-- **在 vibe coding 中**：AI 消除所有天然心流打断点，负责说"该停了"的脑区恰好被关掉
+If the core feature is "remind me to rest every so often," pomo,
+Flomo, and Stretchly already cover it. Differentiation has to come
+from "AI awareness": knowing interaction rounds, interaction density,
+and code-change volume, rather than tracking a clock.
 
-### 3. 谷氨酸积累
-- **研究者**：Wiehler et al.（2022，*Current Biology*，巴黎脑研究所）
-- **机制**：高强度认知工作导致侧前额叶谷氨酸浓度升高，进一步认知控制成本增加
-- **在 vibe coding 中**：持续评估 AI 输出是纯 System 2 工作，前额叶在物理化学层面过载
+## Core insight: six neural mechanisms
 
-### 4. 变比率强化（老虎机效应）
-- **研究者**：B.F. Skinner、Natasha Dow Schull（NYU，《Addiction by Design》）
-- **机制**：不可预测的奖励时机产生最高响应率，near-miss 激活的脑区≈真正获奖
-- **在 vibe coding 中**：AI 输出时好时坏，"再试一个 prompt"≈"再来一把"
+Deeper research confirms that fatigue from vibe coding is the result
+of six neural mechanisms acting at once. These mechanisms are the
+theoretical foundation of the product and its source of
+differentiation.
 
-### 5. 默认模式网络（DMN）饥饿
-- **研究者**：Marcus Raichle（华盛顿大学，2001）
-- **机制**：DMN 在走神/发呆时激活，负责创造性联想和自我反思；持续专注会压制 DMN
-- **在 vibe coding 中**：数小时持续专注完全压制 DMN，开发者失去察觉自身疲劳的能力
+### 1. Dopamine depletion
 
-### 6. 停止信号缺失
-- **研究者**：Adam Alter（NYU，《欲罢不能》）
-- **机制**：上瘾技术移除停止信号（电视有集末，报纸有最后一页，无限滚动没有）
-- **在 vibe coding 中**：prompt 循环没有天然终点
+- **Researchers**: Anna Lembke (Stanford, *Dopamine Nation*);
+  Wolfram Schultz (Cambridge).
+- **Mechanism**: the pleasure-pain seesaw. Rapid, repeated rewards
+  cause neural adaptation; the pleasure hit weakens and the trough
+  that follows deepens.
+- **In vibe coding**: a feedback loop every 30 to 120 seconds.
+  Sessions start exciting and end empty.
 
-### 协同效应
+### 2. Extended flow states
 
-六个机制相互强化：多巴胺透支驱动继续→变比率强化抵抗停止→DMN 压制消除自我监控→停止信号缺失移除外部触发→超时长心流关闭前额叶刹车→谷氨酸积累在生理层面降低认知能力。
+- **Researchers**: Arne Dietrich (transient hypofrontality hypothesis,
+  2003); Limb and Braun (fMRI, 2008).
+- **Mechanism**: during flow, the prefrontal cortex (self-monitoring,
+  time perception) quiets down.
+- **In vibe coding**: AI eliminates the natural interruption points
+  that used to break flow, and the very brain region responsible for
+  saying "time to stop" is the one that gets turned off.
 
-## 关键数据点
+### 3. Glutamate accumulation
 
-| 来源 | 发现 |
+- **Researchers**: Wiehler et al. (2022, *Current Biology*, Paris
+  Brain Institute).
+- **Mechanism**: sustained high-effort cognitive work raises
+  glutamate concentrations in the lateral prefrontal cortex, making
+  further cognitive control metabolically expensive.
+- **In vibe coding**: continuously evaluating AI output is pure
+  System 2 work. The prefrontal cortex becomes overloaded at a
+  physical, chemical level.
+
+### 4. Variable-ratio reinforcement (the slot-machine effect)
+
+- **Researchers**: B.F. Skinner; Natasha Dow Schull (NYU,
+  *Addiction by Design*).
+- **Mechanism**: unpredictable reward timing produces the highest
+  response rates. "Near-misses" activate nearly the same brain
+  regions as actual wins.
+- **In vibe coding**: AI output is good sometimes, bad sometimes.
+  "Let me try one more prompt" is functionally "one more spin."
+
+### 5. Default Mode Network (DMN) starvation
+
+- **Researcher**: Marcus Raichle (Washington University, 2001).
+- **Mechanism**: the DMN activates when the mind wanders and
+  supports creative association and self-reflection. Sustained focus
+  suppresses it.
+- **In vibe coding**: hours of uninterrupted focus fully suppress
+  the DMN, and with it the developer's ability to notice their own
+  fatigue.
+
+### 6. Missing stop signals
+
+- **Researcher**: Adam Alter (NYU, *Irresistible*).
+- **Mechanism**: addictive technology removes natural stopping
+  points (television has an end-of-episode; newspapers have a last
+  page; infinite scroll has neither).
+- **In vibe coding**: the prompt loop has no natural endpoint.
+
+### How they compound
+
+The six mechanisms reinforce each other. Dopamine depletion drives
+the urge to keep going; variable-ratio reinforcement resists
+stopping; DMN suppression removes self-monitoring; missing stop
+signals remove external triggers; extended flow silences the
+prefrontal brakes; and glutamate accumulation lowers cognitive
+capacity at the physiological level.
+
+## Key data points
+
+| Source | Finding |
 |---|---|
-| HBR/BCG 2026 (n=1488) | 14% AI 用户报告"AI brain fry"，决策疲劳 +33%，严重错误 +39%，离职意愿 +39% |
-| K. Anders Ericsson | 世界顶级专家高强度认知工作上限：3-5 小时/天，单次 ~1 小时 |
-| Kleitman 超日节律 | 大脑 ~90 分钟一个周期，最佳模式：90 分钟工作 + 15-20 分钟休息 |
-| METR 2025 | 开发者自感快 20%，实际慢 19%——感知与现实鸿沟 |
-| Wiehler 2022 | 一整天高认知工作后前额叶谷氨酸显著升高 |
-| 番茄钟研究 | 固定 25 分钟间隔的科学支持有限，可能不匹配个体节律 |
+| HBR / BCG 2026 (n=1488) | 14% of AI users report "AI brain fry." Decision fatigue +33%, serious errors +39%, intent to leave +39%. |
+| K. Anders Ericsson | Even world-class experts cap high-effort cognitive work at 3 to 5 hours per day, ~1 hour per sitting. |
+| Kleitman's ultradian rhythm | The brain runs on ~90-minute cycles. Optimal: 90 minutes of work, 15 to 20 minutes of rest. |
+| METR 2025 | Developers feel 20% faster with AI but are measurably 19% slower. Perception-reality gap. |
+| Wiehler 2022 | A full day of high-cognition work produces a significant glutamate rise in the prefrontal cortex. |
+| Pomodoro research | The scientific support for a fixed 25-minute interval is thin. It may not match individual rhythms. |
 
-## 产品方向决策
+## Product direction
 
-- **核心定位**：不是又一个番茄钟，而是"补回被 AI 吃掉的停止信号"
-- **首发平台**：Claude Code（hooks 系统提供完整的生命周期事件）
-- **智能提醒**：基于交互密度和模式（如老虎机模式检测），而非固定时间间隔
-- **提醒内容**：基于神经科学，告诉用户正在发生什么，而非空洞的"该休息了"
-- **纯本地**：所有数据存储在本地，不收费，开源
+- **Positioning**: not another Pomodoro timer. A tool that restores
+  the stop signals AI erased.
+- **First platform**: Claude Code. Its hooks system provides a clean
+  lifecycle to observe.
+- **Smart reminders**: driven by interaction density and patterns
+  (like detecting slot-machine-style rapid prompting), not a fixed
+  timer.
+- **Reminder content**: informed by neuroscience. Tells the user
+  what's actually happening rather than repeating "time to rest."
+- **Local-only**: state lives on disk, no server, no pricing, open
+  source.
 
-## 核心参考文献
+## Core references
 
 - Lembke, A. (2021). *Dopamine Nation*. Dutton.
 - Wiehler, A. et al. (2022). *Current Biology*, 32(16), 3564-3575.
 - Dietrich, A. (2003). *Consciousness and Cognition*, 12(2), 231-256.
-- Ericsson, A. & Pool, R. (2016). *Peak*. Houghton Mifflin.
+- Ericsson, A. and Pool, R. (2016). *Peak*. Houghton Mifflin.
 - Alter, A. (2017). *Irresistible*. Penguin.
 - Bedard, J. et al. (2026). When Using AI Leads to "Brain Fry." *HBR*.
-- Csikszentmihalyi, M. (1990). *Flow*. Harper & Row.
+- Csikszentmihalyi, M. (1990). *Flow*. Harper and Row.
 - Schultz, W. (2016). *Dialogues in Clinical Neuroscience*, 18(1), 23-32.
 - Schull, N.D. (2012). *Addiction by Design*. Princeton University Press.

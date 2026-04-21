@@ -22,7 +22,7 @@ pub struct FatigueBreakdown {
 impl FatigueBreakdown {
     /// Return the dominant reason for fatigue (highest contributor).
     pub fn dominant_reason(&self) -> FatigueReason {
-        // Late night is special — if multiplier is boosting, it's the most actionable signal.
+        // Late night is special, if multiplier is boosting, it's the most actionable signal.
         if self.late_night && self.total > 0.0 {
             return FatigueReason::LateNight;
         }
@@ -111,7 +111,7 @@ pub fn compute_fatigue(state_mgr: &StateManager) -> FatigueBreakdown {
 
 /// Density acceleration: compare prompt rate in the last 10 minutes
 /// vs the 10 minutes before that. Rising rate = possible anxiety loop.
-/// Now tracks prompts (Stop events), not tool calls — so counts are much lower.
+/// Now tracks prompts (Stop events), not tool calls, so counts are much lower.
 /// Wider window (10 min) smooths out noise from low prompt counts.
 fn compute_density_acceleration(interactions: &[i64], now: i64) -> f64 {
     let window_ms: i64 = 10 * 60 * 1000; // 10 minutes
@@ -125,17 +125,17 @@ fn compute_density_acceleration(interactions: &[i64], now: i64) -> f64 {
         .count() as f64;
 
     if previous < 2.0 {
-        // Not enough history — only penalize if prompting extremely fast.
+        // Not enough history, only penalize if prompting extremely fast.
         // >12 prompts in 10 min = more than one per 50 seconds, genuinely frantic.
         if recent > 12.0 { 10.0 } else { 0.0 }
     } else {
         let ratio = recent / previous;
         if ratio > 2.5 {
-            15.0 // Strong acceleration — likely frustration loop
+            15.0 // Strong acceleration, likely frustration loop
         } else if ratio > 1.8 {
             8.0  // Moderate acceleration
         } else if ratio < 0.5 {
-            -5.0 // Slowing down — good sign
+            -5.0 // Slowing down, good sign
         } else {
             0.0  // Stable
         }
@@ -154,7 +154,7 @@ fn compute_break_debt(
             let gap_ms = session_start - summary.end_time;
             (gap_ms as f64 / 60_000.0).max(0.0)
         }
-        None => 999.0, // No previous session — no debt.
+        None => 999.0, // No previous session, no debt.
     };
 
     let time_since_break_min = (now - session_start) as f64 / 60_000.0;
@@ -228,7 +228,7 @@ fn jittered_cooldown_ms(intensity: u8) -> i64 {
 /// Two paths can trigger a reminder:
 ///   1. Baseline check-in: guaranteed first reminder at ~45 min if none sent yet.
 ///   2. Fatigue-driven: score exceeds threshold (severity scales with ratio).
-/// Both share the same cooldown — they never stack.
+/// Both share the same cooldown. they never stack.
 pub fn check_fatigue(state_mgr: &StateManager) -> Option<FatigueTrigger> {
     let state = state_mgr.state.lock().unwrap();
     let session = match state.current_session.as_ref() {
@@ -278,7 +278,7 @@ pub fn check_fatigue(state_mgr: &StateManager) -> Option<FatigueTrigger> {
         return None;
     }
 
-    // Score exceeded threshold — wait for natural pause.
+    // Score exceeded threshold. wait for natural pause.
     let state = state_mgr.state.lock().unwrap();
     let session = state.current_session.as_ref()?;
 

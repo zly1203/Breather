@@ -93,7 +93,7 @@ async function refresh() {
     updateBlob(null);
   }
 
-  // Activity card — always 3 rows, "—" for missing values.
+  // Activity card: always 3 rows, "—" as placeholder for missing values.
   const sessionMin = sessionStats ? sessionStats.duration_minutes : 0;
   const hasSession = !!sessionStats;
 

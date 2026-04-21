@@ -38,7 +38,7 @@ function hasVibeBreakHook(hooks) {
 
 function init() {
   log("");
-  log("  Breather — setting up...");
+  log("  Breather: setting up...");
   log("");
 
   // 1. Copy hook script to ~/.breather/
@@ -61,7 +61,7 @@ function init() {
     saveJSON(CLAUDE_SETTINGS, settings);
     log("  ✓ Registered hook in ~/.claude/settings.json");
   } else {
-    log("  · Hook already registered — skipped.");
+    log("  · Hook already registered (skipped).");
   }
 
   log("");
@@ -69,8 +69,8 @@ function init() {
   log("  The hook sends events to the app on each AI interaction.");
   log("");
   log("  Commands:");
-  log("    breather status     — check connection to the app");
-  log("    breather uninstall  — remove hook");
+  log("    breather status      check connection to the app");
+  log("    breather uninstall   remove hook");
   log("");
 }
 
@@ -143,9 +143,9 @@ switch (command) {
     log("  Breather");
     log("");
     log("  Usage:");
-    log("    breather init       — install Claude Code hook");
-    log("    breather status     — check app connection");
-    log("    breather uninstall  — remove hook");
+    log("    breather init        install Claude Code hook");
+    log("    breather status      check app connection");
+    log("    breather uninstall   remove hook");
     log("");
     break;
 }
