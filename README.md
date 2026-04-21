@@ -15,6 +15,12 @@ you gently to pause. No timers to set. No lock screens. No guilt.
 Just a small companion that knows when to speak and when to stay
 out of your way.
 
+<p align="center">
+  <img src="docs/screenshot-idle.png" width="220" alt="Idle: tea cup">
+  <img src="docs/screenshot-focused.png" width="220" alt="Focused: desk lamp">
+  <img src="docs/screenshot-tired.png" width="220" alt="Tired: sleepy cat">
+</p>
+
 ---
 
 ## Requirements
