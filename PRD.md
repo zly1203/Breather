@@ -264,14 +264,17 @@ fallback for `init` / `status` / `uninstall`.
 
 ## 7. Success signals
 
-- **Retention.** Installed users keep the app running (7-day
-  retention > 40%).
-- **Low-friction.** Reminders are not reported as intrusive
-  (satisfaction > 4 / 5).
-- **Useful timing.** Users feel reminders arrive at sensible
-  moments (> 60%).
-- **Behavior change.** Average session length naturally drops
-  after installation.
+What "good" would look like if measured. These are aspirational
+targets for a future evaluation, not current numbers.
+
+- **Retention.** Installed users keep the app running past the
+  first week.
+- **Low-friction.** Reminders are not reported as intrusive in
+  qualitative feedback.
+- **Useful timing.** Users feel the reminders arrive at sensible
+  moments most of the time.
+- **Behavior change.** Average session length drops after
+  installation.
 
 ---
 

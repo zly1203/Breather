@@ -17,20 +17,45 @@ out of your way.
 
 ---
 
-## Install (macOS)
+## Requirements
+
+macOS 10.15 (Catalina) or later. Claude Code must be installed
+for the hook to do anything; if it isn't, Breather will still run,
+it'll just have nothing to listen to.
+
+## Install
 
 1. Download the latest `Breather_*.dmg` from [Releases](https://github.com/zly1203/Breather/releases).
 2. Open it and drag **Breather** to `/Applications`.
-3. Paste this once in Terminal (it clears the "unidentified developer" quarantine flag):
+3. Paste this once in Terminal (it clears the "unidentified developer" quarantine flag that macOS adds to downloaded apps):
 
    ```
    xattr -cr /Applications/Breather.app
    ```
 
-4. Launch Breather from Applications. Grant notification permission when prompted.
+4. Launch Breather from Applications. On first launch it registers
+   a hook into Claude Code automatically and fires a confirmation
+   notification.
 
-That's it. On first launch, Breather registers a hook into Claude
-Code automatically. Click the menubar icon anytime to check in.
+### If you don't see the confirmation notification
+
+macOS sometimes skips the initial permission prompt for unsigned
+apps. Open **System Settings → Notifications**, scroll to
+**Breather**, and switch "Allow notifications" on.
+
+## Uninstall
+
+1. Drag `Breather.app` from Applications to the Trash.
+2. Remove the hook Breather installed:
+
+   ```
+   rm -rf ~/.breather
+   ```
+
+3. Edit `~/.claude/settings.json` and remove any entry under
+   `hooks.Stop` whose `command` is `~/.breather/hook.sh`. Or, if
+   you kept the CLI, run `npx breather uninstall` instead of steps
+   2 and 3; it cleans up both.
 
 ---
 
@@ -50,6 +75,11 @@ message and delivers it at the next natural pause in your work.
 
 ---
 
+## Questions or issues
+
+Found a bug, want to suggest a different reminder, or just have a
+question? [Open an issue](https://github.com/zly1203/Breather/issues).
+
 ## Background
 
 - [Origin story](./CONTEXT.md): why this exists
@@ -58,5 +88,5 @@ message and delivers it at the next natural pause in your work.
 ## License
 
 [PolyForm Noncommercial 1.0.0](./LICENSE). Free for personal,
-educational, and research use. For commercial use, please get in
-touch.
+educational, and research use. For commercial use, open an issue
+on GitHub to get in touch.
