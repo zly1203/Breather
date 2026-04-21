@@ -57,4 +57,6 @@ message and delivers it at the next natural pause in your work.
 
 ## License
 
-[MIT](./LICENSE)
+[PolyForm Noncommercial 1.0.0](./LICENSE) — free for personal,
+educational, and research use. For commercial use, please get in
+touch.
