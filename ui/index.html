@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breather</title>
+  <link rel="stylesheet" href="style.css?v=12">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="character-group">
+        <div class="blob-container" id="blob-container">
+          <img src="cup.png" alt="" class="blob-img blob-calm" draggable="false">
+        </div>
+        <p class="status-text" id="brain-status"></p>
+        <p class="empty-hint" id="no-session">Start coding. I'll be here.</p>
+      </div>
+    </header>
+
+    <section class="activity-card" id="activity-card">
+      <div class="activity-row" id="today-row">
+        <span class="activity-label">Today</span>
+        <span class="activity-value" id="today-value">—</span>
+      </div>
+      <div class="activity-row" id="session-row">
+        <span class="activity-label">Now</span>
+        <span class="activity-value" id="session-value">—</span>
+      </div>
+      <div class="activity-row" id="interactions-row">
+        <span class="activity-label">Interactions</span>
+        <span class="activity-value" id="interactions-value">—</span>
+      </div>
+    </section>
+
+    <section class="intensity-group">
+      <div class="intensity-row">
+        <span class="intensity-label">Reminders</span>
+      </div>
+      <div class="slider-track-container">
+        <input
+          type="range"
+          id="intensity-slider"
+          min="1"
+          max="100"
+          value="50"
+          step="1"
+          class="slider"
+        >
+      </div>
+      <div class="slider-anchors">
+        <span>Less</span>
+        <span>More</span>
+      </div>
+    </section>
+
+    <footer>
+      <p class="footer-line">Take care of yourself</p>
+    </footer>
+
+  </div>
+  <script src="blob.js?v=11"></script>
+  <script src="app.js?v=11"></script>
+</body>
+</html>

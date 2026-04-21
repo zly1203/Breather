@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sage green rounded square background -->
+  <rect width="1024" height="1024" rx="228" fill="#6B9E78"/>
+  <rect x="3" y="3" width="1018" height="1018" rx="226"
+        fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+
+  <!-- Leaf, tilted, organic shape -->
+  <g transform="translate(524, 480) rotate(25)">
+    <!-- Leaf body: pointed tip, wide middle, rounded bottom -->
+    <path d="M0,-220 C90,-160 130,0 80,160 C50,220 -50,220 -80,160 C-130,0 -90,-160 0,-220Z"
+          fill="white" fill-opacity="0.95"/>
+    <!-- Center vein -->
+    <line x1="0" y1="-180" x2="0" y2="180"
+          stroke="rgba(107,158,120,0.25)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Side veins -->
+    <path d="M0,-100 L45,-55 M0,-30 L55,15 M0,50 L45,90"
+          stroke="rgba(107,158,120,0.2)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Stem -->
+    <path d="M0,195 Q-10,250 -25,280"
+          stroke="white" stroke-width="14" stroke-linecap="round" fill="none" stroke-opacity="0.85"/>
+  </g>
+</svg>

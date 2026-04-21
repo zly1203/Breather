@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Rust / Tauri build artifacts
+src-tauri/target/
+src-tauri/gen/
+
+# Logs
+*.log
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Local env / secrets
+.env
+.env.*
+!.env.example
+
+# Local state / backups
+*.bak
+*.bak.*
+*.tmp
+
+# Internal dev-only docs (not for public distribution)
+CHARACTER_IMAGE_FIX.md
+taste-skill.md
+
+# Dev preview pages (not used by the app bundle)
+ui/preview-*.html

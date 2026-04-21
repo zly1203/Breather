@@ -1,0 +1,26 @@
+{
+  "name": "breather",
+  "version": "0.1.0",
+  "description": "A quiet reminder that you're still human.",
+  "bin": {
+    "breather": "./bin/breather.js"
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "keywords": [
+    "claude-code",
+    "ai-coding",
+    "break-reminder",
+    "wellbeing",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.1"
+  }
+}
